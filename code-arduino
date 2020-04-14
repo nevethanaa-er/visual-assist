@@ -1,0 +1,35 @@
+ const int triggerpin=7;
+const int echopin=6;
+const int buzzer=8;
+void setup() {
+   Serial.begin(9600);
+}
+void loop() {  
+  long duration,inch;
+  pinMode(triggerpin,OUTPUT);
+  digitalWrite(triggerpin,LOW);
+  delayMicroseconds(2);
+  digitalWrite(triggerpin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerpin,LOW);
+  pinMode(echopin,INPUT);
+  duration=pulseIn(echopin,HIGH);
+  inch=Microseconds_To_Inches(duration);
+  pinMode(buzzer,OUTPUT);  
+  Serial.print("distance    ")   ;
+  Serial.print(inch);
+  Serial.print("inch");
+  Serial.println();
+  delayMicroseconds(10);
+  if(inch<609){
+     Serial.print("ok");
+     digitalWrite(buzzer,HIGH);
+     delay(10000);
+     digitalWrite(buzzer,LOW);
+     delay(5000);}
+}
+
+long Microseconds_To_Inches(long microseconds)
+{
+  return microseconds/74/2;
+} 
